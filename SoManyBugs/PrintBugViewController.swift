@@ -31,12 +31,10 @@ class PrintBugViewController: UIViewController {
     // MARK: Bug Functions
     
     func addBugToView() {
-        print("reached addBugToView()")
         if bugs.count < maxBugs {
-            print("passed bugs.count bool")
+            print(self)
             let newBug = bugFactory.createBug()
             bugs.append(newBug)
-            print(bugs.count)
             moveBugsAnimation()
         }
     }
@@ -52,8 +50,8 @@ class PrintBugViewController: UIViewController {
     
     func moveBugsAnimation() {
         UIView.animate(withDuration: moveDuration, animations: {
+            debugPrint(self)
             for bug in self.bugs {
-                print("reached animation loop")
                 let randomPosition = CGPoint(x: CGFloat(arc4random_uniform(UInt32(UInt(self.view.bounds.maxX - bug.frame.size.width))) + UInt32(bug.frame.size.width/2)), y: CGFloat(arc4random_uniform(UInt32(UInt(self.view.bounds.maxY - bug.frame.size.height))) + UInt32(bug.frame.size.height/2)))
                 bug.frame = CGRect(x: randomPosition.x - bug.frame.size.width/1.5, y: randomPosition.y - bug.frame.size.height/1.5, width: BugFactory.bugSize.width, height: BugFactory.bugSize.height)
                 self.view.addSubview(bug)
@@ -87,7 +85,22 @@ extension PrintBugViewController {
         if motion == .motionShake { disperseBugsAnimation() }
     }
     func handleSingleTap(_ recognizer: UITapGestureRecognizer) {
-        print("handleSingleTap reached")
         addBugToView() }
+}
+
+extension PrintBugViewController {
+    
+    override var description: String {
+        return "PrintBugViewController contains \(bugs.count) bugs\n"
+    }
+    
+    override var debugDescription: String {
+        var debugString = "PrintBugViewController contains \(bugs.count) bugs...\n"
+        for (index, bug) in bugs.enumerated() {
+            debugString = debugString + "Bug\(index): \(bug.frame)\n"
+        }
+        return debugString
+    }
+    
 }
 
