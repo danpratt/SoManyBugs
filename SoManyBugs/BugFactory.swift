@@ -13,10 +13,13 @@ import Foundation
 
 class BugFactory {
     
+    // get double value of pi
+    static let PI = Double.pi
+    
     // MARK: Properties
     
     static let bugTints = [UIColor.black, UIColor.brightBlueColor(), UIColor.brightRedColor(), UIColor.brightGreenColor()]
-    static let shakeRotations = [M_PI/16, M_PI/8, M_PI/8, M_PI/24]
+    static let shakeRotations = [PI/16, PI/8, PI/8, PI/24]
     static let shakeDurations = [0.3, 3.0, 0.1, 0.5]
     static let bugSize = CGSize(width: 128, height: 128)
     
